@@ -31,4 +31,38 @@ public class WordSearch extends CharGrid{
         }
         return total;
     }
+
+    public boolean isXmasX(int row, int col){
+        if( this.get(row,col) != 'A' || row == 0 || col == 0 || row == this.getHeight() - 1 || col == this.getWidth() - 1){
+            return false;
+        }
+        char nw = this.get(row-1,col-1);
+        char ne = this.get(row-1,col+1);
+        char sw = this.get(row+1,col-1);
+        char se = this.get(row+1,col+1);
+        if(nw == 'M'){
+            if(ne == 'M'){
+                return sw == 'S' && se == 'S';
+            }else if(ne == 'S'){
+                return sw == 'M' && se == 'S';
+            }else return false;
+        }else if(nw == 'S'){
+            if(ne == 'M'){
+                return sw == 'S' && se == 'M';
+            }else if(ne == 'S'){
+                return sw == 'M' && se == 'M';
+            }else return false;
+        }else return false;
+    }
+
+    public int getTotalXmasXCount(){
+        int total = 0;
+        for(int row=0; row<this.getHeight(); row++){
+            for(int col=0; col<this.getWidth(); col++){
+                if(isXmasX(row, col)){ total++; }
+            }
+        }
+        return total;
+    }
+
 }

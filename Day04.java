@@ -15,5 +15,8 @@ public class Day04{
         WordSearch grid = generateWordSearch(input);
         return Integer.toString(grid.getTotalXmasLineCount());
     }
+    public static String getPart02(List<String> input){
+        WordSearch grid = generateWordSearch(input);
+        return Integer.toString(grid.getTotalXmasXCount());
     }
 }
