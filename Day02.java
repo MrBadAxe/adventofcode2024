@@ -6,9 +6,11 @@ public class Day02{
         int stepsDown = 0;
         int stepsBig = 0;
         for(int k=0;k<report.length-1;k++){
-            if(Integer.parseInt(report[k+1]) > Integer.parseInt(report[k])){ stepsUp++; }
-            if(Integer.parseInt(report[k+1]) < Integer.parseInt(report[k])){ stepsDown++; }
-            if(Math.abs(Integer.parseInt(report[k+1]) - Integer.parseInt(report[k])) > 3){ stepsBig++; }
+            int before = Integer.parseInt(report[k]);
+            int after = Integer.parseInt(report[k+1]);
+            if(after > before){ stepsUp++; }
+            if(after < before){ stepsDown++; }
+            if(Math.abs(after - before) > 3){ stepsBig++; }
         }
         return ((stepsUp == report.length-1) || (stepsDown == report.length-1)) && stepsBig == 0;
     }

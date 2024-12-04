@@ -19,11 +19,7 @@ public class Day03{
 
     public static String getPart02(List<String> input){
         int total = 0;
-        String str = "";
-        for(String s : input){
-            str += s;
-        }
-        str = "do()" + str + "don't()";
+        String str = "do()" + String.join("",input) + "don't()";
         Pattern p1 = Pattern.compile("do\\(\\)(.*?)don't\\(\\)");
         Matcher m1 = p1.matcher(str);
         while(m1.find()){
