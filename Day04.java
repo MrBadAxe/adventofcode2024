@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class Day04{
-    public static String getPart01(List<String> input){
+    private static WordSearch generateWordSearch(List<String> input){
         WordSearch grid = new WordSearch(input.size(), input.get(0).length(), '.');
         for(int row = 0; row < input.size(); row++){
             String str = input.get(row);
@@ -9,7 +9,11 @@ public class Day04{
                 grid.set(row,col,str.charAt(col));
             }
         }
-        System.out.println(grid);
-        return Integer.toString(grid.getTotalXmasCount());
+        return grid;
+    }
+    public static String getPart01(List<String> input){
+        WordSearch grid = generateWordSearch(input);
+        return Integer.toString(grid.getTotalXmasLineCount());
+    }
     }
 }
