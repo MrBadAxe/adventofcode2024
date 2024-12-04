@@ -3,10 +3,8 @@ public class WordSearch extends CharGrid{
         super(x,y,init);
     }
 
-    public int getXmasCount(int row, int col){
-        if(this.get(row, col) != 'X'){
-            return 0;
-        }
+    public int getXmasLineCount(int row, int col){
+        if(this.get(row, col) != 'X'){ return 0; }
         int z = 0;
         if(row >= 3){
             if(                                 this.get(row-1,col) == 'M' &&   this.get(row-2,col) == 'A' &&   this.get(row-3,col) == 'S'){ z++; }
@@ -24,11 +22,11 @@ public class WordSearch extends CharGrid{
         return z;
     }
 
-    public int getTotalXmasCount(){
+    public int getTotalXmasLineCount(){
         int total = 0;
         for(int row=0; row<this.getHeight(); row++){
             for(int col=0; col<this.getWidth(); col++){
-                total += getXmasCount(row, col);
+                total += getXmasLineCount(row, col);
             }
         }
         return total;
