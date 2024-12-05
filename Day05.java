@@ -10,6 +10,14 @@ public class Day05{
         }
         return rules;
     }
+    private static ArrayList<Integer> parsePageList(String str){
+        ArrayList<Integer> z = new ArrayList<>();
+        String[] split = str.split(",");
+        for(int k=0;k<split.length;k++){
+            z.add(Integer.parseInt(split[k]));
+        }
+        return z;
+    }
     private static boolean pagesInOrder(ArrayList<Integer> pages, ArrayList<PageOrderRule> rules){
         for(PageOrderRule rule : rules){
             int beforeIndex = pages.indexOf(rule.before());
@@ -24,11 +32,7 @@ public class Day05{
 
         int total = 0;
         for(String pageList : pageListLines){
-            ArrayList<Integer> pages = new ArrayList<>();
-            String[] split = pageList.split(",");
-            for(int k=0;k<split.length;k++){
-                pages.add(Integer.parseInt(split[k]));
-            }
+            ArrayList<Integer> pages = parsePageList(pageList);
             if(pagesInOrder(pages, rules)){
                 total += pages.get((pages.size() - 1) / 2);
             }
