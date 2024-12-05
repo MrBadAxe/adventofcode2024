@@ -26,6 +26,23 @@ public class Day05{
         }
         return true;
     }
+    private static ArrayList<Integer> sortPages(ArrayList<Integer> pages, ArrayList<PageOrderRule> rules){
+        ArrayList<Integer> z = new ArrayList<>();
+        z.addAll(pages);
+        while(!pagesInOrder(z, rules)){
+            for(PageOrderRule rule : rules){
+                int beforeIndex = z.indexOf(rule.before());
+                int afterIndex = z.indexOf(rule.after());
+                if(beforeIndex >= 0 && afterIndex >= 0 && afterIndex < beforeIndex){
+                    Integer a = z.get(afterIndex);
+                    Integer b = z.get(beforeIndex);
+                    z.set(beforeIndex,a);
+                    z.set(afterIndex,b);
+                }
+            }    
+        }
+        return z;
+    }
     public static String getPart01(List<String> input){
         ArrayList<PageOrderRule> rules = generateRulesList(input);
         List<String> pageListLines = input.subList(rules.size()+1, input.size());
@@ -34,6 +51,20 @@ public class Day05{
         for(String pageList : pageListLines){
             ArrayList<Integer> pages = parsePageList(pageList);
             if(pagesInOrder(pages, rules)){
+                total += pages.get((pages.size() - 1) / 2);
+            }
+        }
+        return Integer.toString(total);
+    }
+    public static String getPart02(List<String> input){
+        ArrayList<PageOrderRule> rules = generateRulesList(input);
+        List<String> pageListLines = input.subList(rules.size()+1, input.size());
+
+        int total = 0;
+        for(String pageList : pageListLines){
+            ArrayList<Integer> pages = parsePageList(pageList);
+            if(!pagesInOrder(pages,rules)){
+                pages = sortPages(pages, rules);
                 total += pages.get((pages.size() - 1) / 2);
             }
         }
