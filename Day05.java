@@ -28,7 +28,7 @@ public class Day05{
     }
     public static String getPart01(List<String> input){
         ArrayList<PageOrderRule> rules = generateRulesList(input);
-        List<String> pageListLines = input.subList(rules.size()+1, input.size()-1);
+        List<String> pageListLines = input.subList(rules.size()+1, input.size());
 
         int total = 0;
         for(String pageList : pageListLines){
