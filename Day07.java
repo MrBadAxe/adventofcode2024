@@ -6,18 +6,11 @@ public class Day07{
         return Long.parseLong(Long.toString(a) + "" + Long.toString(b));
     }
     private static boolean testCalibration(long testValue, ArrayList<Long> operands, boolean useConcat){
-        if(operands.size() == 2){
-            if(testValue == operands.get(0) * operands.get(1)){
-                return true;
-            }else if(testValue == operands.get(0) + operands.get(1)){
-                return true;
-            }else if(useConcat && testValue == concat(operands.get(0),operands.get(1))){
-                return true;
-            }else return false;
+        long op1 = operands.removeFirst();
+        long op2 = operands.removeFirst();
+        if(operands.size() == 0){
+            return (testValue == op1 * op2) || (testValue == op1 + op2) || (useConcat && testValue == concat(op1,op2));
         }else{
-            long op1 = operands.removeFirst();
-            long op2 = operands.removeFirst();
-
             ArrayList<Long> added = new ArrayList<>();
             added.addAll(operands);
             added.add(0,op1+op2);
