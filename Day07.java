@@ -48,7 +48,7 @@ public class Day07{
             for(int k=1;k<split2.length;k++){
                 operands.add(Long.parseLong(split2[k]));
             }
-            if(testCalibration(testValue,operands)){
+            if(testCalibration(testValue,operands,false)){
                 total += testValue;
             }
         }
