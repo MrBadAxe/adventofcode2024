@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class LabMap extends CharGrid{
     private LabGuard guard;
+
     public LabMap(int x, int y, char init){
         super(x,y,init);
     }
@@ -46,5 +49,27 @@ public class LabMap extends CharGrid{
             }
         }
         return total;
+    }
+    public boolean endsInLoop(){
+        guard = findGuard();
+        ArrayList<Point> guardTurns = new ArrayList<Point>();
+
+        int x = (int)guard.nextMove().getX();
+        int y = (int)guard.nextMove().getY();
+        while(x >= 0 && x < this.getHeight() && y >= 0 && y < this.getWidth()){
+            if(this.get(x,y) == '#'){
+                if(guardTurns.contains(guard) && guardTurns.indexOf(guard) != guardTurns.size()-1){
+                    return true;
+                }else{
+                    guardTurns.add(guard);
+                    guard.turnRight();
+                }
+            }else{
+                guard = guard.nextMove();
+            }
+            x = (int)guard.nextMove().getX();
+            y = (int)guard.nextMove().getY();
+        }
+        return false;
     }
 }
