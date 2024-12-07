@@ -3,6 +3,15 @@ public class LabMap extends CharGrid{
     public LabMap(int x, int y, char init){
         super(x,y,init);
     }
+    public LabMap clone(){
+        LabMap z = new LabMap(this.getHeight(),this.getWidth(),'.');
+        for(int row=0;row<HEIGHT;row++){
+          for(int col=0;col<WIDTH;col++){
+            z.set(row,col,this.get(row,col));
+          }
+        }
+        return z;
+    }
     public LabGuard findGuard(){
         for(int row=0;row<this.getHeight();row++){
             for(int col=0;col<this.getWidth();col++){
