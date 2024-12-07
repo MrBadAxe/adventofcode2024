@@ -10,7 +10,6 @@ public class Day06{
 			}
         }
 		System.out.println(map);
-		map.findGuard();
 		int total = map.trackGuard();
 		return Integer.toString(total);
     }
