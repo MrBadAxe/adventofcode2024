@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 public class Day07{
     private static boolean testCalibration(long testValue, ArrayList<Long> operands){
+    private static long concat(long a, long b){
+        return Long.parseLong(Long.toString(a) + "" + Long.toString(b));
+    }
         if(operands.size() == 2){
             return (testValue == operands.get(0) * operands.get(1) || testValue == operands.get(0) + operands.get(1));
         }else{
