@@ -2,26 +2,39 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Day07{
-    private static boolean testCalibration(long testValue, ArrayList<Long> operands){
     private static long concat(long a, long b){
         return Long.parseLong(Long.toString(a) + "" + Long.toString(b));
     }
+    private static boolean testCalibration(long testValue, ArrayList<Long> operands, boolean useConcat){
         if(operands.size() == 2){
-            return (testValue == operands.get(0) * operands.get(1) || testValue == operands.get(0) + operands.get(1));
+            if(testValue == operands.get(0) * operands.get(1)){
+                return true;
+            }else if(testValue == operands.get(0) + operands.get(1)){
+                return true;
+            }else if(useConcat && testValue == concat(operands.get(0),operands.get(1))){
+                return true;
+            }else return false;
         }else{
+            long op1 = operands.removeFirst();
+            long op2 = operands.removeFirst();
+
             ArrayList<Long> added = new ArrayList<>();
             added.addAll(operands);
-            long op1 = added.removeFirst();
-            long op2 = added.removeFirst();
             added.add(0,op1+op2);
+            if(testCalibration(testValue,added,useConcat)){ return true; }
 
             ArrayList<Long> multiplied = new ArrayList<>();
             multiplied.addAll(operands);
-            op1 = multiplied.removeFirst();
-            op2 = multiplied.removeFirst();
             multiplied.add(0,op1*op2);
+            if(testCalibration(testValue,multiplied,useConcat)){ return true; }
 
-            return testCalibration(testValue, added) || testCalibration(testValue, multiplied);
+            if(useConcat){
+                ArrayList<Long> concatenated = new ArrayList<>();
+                concatenated.addAll(operands);
+                concatenated.add(0,concat(op1,op2));
+                if(testCalibration(testValue,concatenated,useConcat)){ return true; }    
+            }
+            return false;
         }
     }
 
