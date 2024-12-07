@@ -9,7 +9,6 @@ public class Day06{
 				map.set(row,col,str.charAt(col));
 			}
         }
-		System.out.println(map);
 		int total = map.trackGuard();
 		return Integer.toString(total);
     }

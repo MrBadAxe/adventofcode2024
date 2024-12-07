@@ -19,8 +19,6 @@ public class LabMap extends CharGrid{
         int x = (int)guard.nextMove().getX();
         int y = (int)guard.nextMove().getY();
         while(x >= 0 && x < this.getHeight() && y >= 0 && y < this.getWidth()){
-            //System.out.println(guard.toString());
-            //System.out.println(guard.nextMove().toString());
             if(this.get(x,y) == '#'){
                 guard.turnRight();
             }else{
@@ -29,7 +27,6 @@ public class LabMap extends CharGrid{
             }
             x = (int)guard.nextMove().getX();
             y = (int)guard.nextMove().getY();
-            //System.out.println(this);
         }
         int total = 0;
         for(int row=0;row<this.getHeight();row++){
