@@ -54,4 +54,20 @@ public class Day07{
         }
         return Long.toString(total);
     }
+    public static String getPart02(List<String> input){
+        long total = 0;
+        for(String line : input){
+            String[] split = line.split(":");
+            long testValue = Long.parseLong(split[0]);
+            String[] split2 = split[1].split("\s+");
+            ArrayList<Long> operands = new ArrayList<>();
+            for(int k=1;k<split2.length;k++){
+                operands.add(Long.parseLong(split2[k]));
+            }
+            if(testCalibration(testValue,operands,true)){
+                total += testValue;
+            }
+        }
+        return Long.toString(total);
+    }
 }
