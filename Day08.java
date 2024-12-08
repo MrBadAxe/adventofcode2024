@@ -23,7 +23,7 @@ public class Day08{
                 if(a.getFrequency() == b.getFrequency()){
                     System.out.println(a + " " + b);
                     System.out.print(a.findAntinode(b));
-                    Point antiA = a.findAntinode(b);
+                    Point antiA = a.findFirstAntinode(b);
                     if(antiA.getX() >= 0 && antiA.getX() < map.getHeight() && antiA.getY() >= 0 && antiA.getY() < map.getWidth()){
                         System.out.println(antinodes.add(antiA));
                         System.out.println("+");
@@ -31,7 +31,7 @@ public class Day08{
                         System.out.println("");
                     }
                     System.out.print(b.findAntinode(a));
-                    Point antiB = b.findAntinode(a);
+                    Point antiB = b.findFirstAntinode(a);
                     if(antiB.getX() >= 0 && antiB.getX() < map.getHeight() && antiB.getY() >= 0 && antiB.getY() < map.getWidth()){
                         System.out.println(antinodes.add(antiB));
                         System.out.println("+");

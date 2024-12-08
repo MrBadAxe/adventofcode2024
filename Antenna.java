@@ -10,7 +10,7 @@ public class Antenna extends Point{
         return this.frequency;
     }
 
-    public Point findAntinode(Antenna other){
+    public Point findFirstAntinode(Antenna other){
         long dx = other.getX() - this.getX();
         long dy = other.getY() - this.getY();
         return new Point(other.getX() + dx, other.getY() + dy);
