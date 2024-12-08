@@ -36,4 +36,22 @@ public class Day08{
         }
         return Integer.toString(antinodes.size());
     }
+    public static String getPart02(List<String> input){
+        AntennaMap map = generateAntennaMap(input);
+
+        ArrayList<Antenna> antennas = map.findAllAntennas();
+        HashSet<Point> antinodes = new HashSet<>();
+        for(int k=0;k<antennas.size()-1;k++){
+            for(int j=k+1;j<antennas.size();j++){
+                Antenna a = antennas.get(k);
+                Antenna b = antennas.get(j);
+                if(a.getFrequency() == b.getFrequency()){
+                    antinodes.addAll(a.findAllAntinodes(b,map));
+                    antinodes.addAll(b.findAllAntinodes(a,map));
+                }
+            }
+        }
+        System.out.println(antinodes);
+        return Integer.toString(antinodes.size());
+    }
 }
