@@ -34,4 +34,9 @@ public class Point{
   public String toString(){
     return "(" + this.getX() + "," + this.getY() + ")";
   }
+
+  @Override
+  public int hashCode(){
+    return Long.hashCode(this.getX()) + Long.hashCode(this.getY());
+  }
 }
