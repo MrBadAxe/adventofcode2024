@@ -11,8 +11,6 @@ public class Day08{
                 map.set(row,col,line.charAt(col));
             }
         }
-        System.out.println(map);
-        System.out.println(map.findAllAntennas());
 
         ArrayList<Antenna> antennas = map.findAllAntennas();
         HashSet<Point> antinodes = new HashSet<>();
@@ -21,27 +19,17 @@ public class Day08{
                 Antenna a = antennas.get(k);
                 Antenna b = antennas.get(j);
                 if(a.getFrequency() == b.getFrequency()){
-                    System.out.println(a + " " + b);
-                    System.out.print(a.findAntinode(b));
                     Point antiA = a.findFirstAntinode(b);
                     if(antiA.getX() >= 0 && antiA.getX() < map.getHeight() && antiA.getY() >= 0 && antiA.getY() < map.getWidth()){
-                        System.out.println(antinodes.add(antiA));
-                        System.out.println("+");
-                    }else{
-                        System.out.println("");
+                        antinodes.add(antiA);
                     }
-                    System.out.print(b.findAntinode(a));
                     Point antiB = b.findFirstAntinode(a);
                     if(antiB.getX() >= 0 && antiB.getX() < map.getHeight() && antiB.getY() >= 0 && antiB.getY() < map.getWidth()){
-                        System.out.println(antinodes.add(antiB));
-                        System.out.println("+");
-                    }else{
-                        System.out.println("");
+                        antinodes.add(antiB);
                     }
                 }
             }
         }
-        System.out.println(antinodes);
         return Integer.toString(antinodes.size());
     }
 }
