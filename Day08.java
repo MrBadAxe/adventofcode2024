@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Day08{
-    public static String getPart01(List<String> input){
+    private static AntennaMap generateAntennaMap(List<String> input){
         AntennaMap map = new AntennaMap(input.size(), input.get(0).length(), '.');
         for(int row=0;row<map.getHeight();row++){
             String line = input.get(row);
@@ -11,6 +11,10 @@ public class Day08{
                 map.set(row,col,line.charAt(col));
             }
         }
+        return map;
+    }
+    public static String getPart01(List<String> input){
+        AntennaMap map = generateAntennaMap(input);
 
         ArrayList<Antenna> antennas = map.findAllAntennas();
         HashSet<Point> antinodes = new HashSet<>();
