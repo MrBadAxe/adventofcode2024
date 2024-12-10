@@ -14,10 +14,7 @@ public class Day10{
     }
     public static String getPart01(List<String> input){
         TopographicMap map = generateTopographicMap(input);
-        System.out.println(map);
-        
         ArrayList<Point> trailheads = map.findAllTrailheads();
-        System.out.println(trailheads);
         int total = 0;
         for(Point head : trailheads){
             total += map.scoreTrailhead(head);

@@ -28,7 +28,6 @@ public class TopographicMap extends CharGrid{
                 reachable.addAll(getReachable(next));
             }
         }
-        System.out.println(peaks);
         return peaks.size();
     }
 
