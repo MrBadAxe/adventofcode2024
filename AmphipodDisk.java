@@ -62,4 +62,48 @@ public class AmphipodDisk{
         }
         return total;
     }
+    public int findSpace(int size){
+        int currentSpace = 0;
+        for(int k=0;k<this.SIZE;k++){
+            if(disk[k] != -1){
+                currentSpace = 0;
+            }else{
+                currentSpace++;
+                if(currentSpace == size){
+                    return (k-size)+1;
+                }
+            }
+        }
+        return -1;
+    }
+    public void moveFile(int from, int to){
+        int id = disk[from];
+        int offset = 0;
+        while(from+offset < disk.length && disk[from+offset] == id){
+            disk[to+offset] = disk[from+offset];
+            disk[from+offset] = -1;
+            offset++;
+        }
+    }
+    public int findFileById(int id){
+        for(int k=0;k<disk.length;k++){
+            if(disk[k] == id){
+                return k;
+            }
+        }
+        return -1;
+    }
+    public void compressDiskUnfragmented(String diskMap){
+        int fileId = (diskMap.length() - 1) / 2;
+        for(int k=fileId;k>=0;k--){
+            int fileStart = findFileById(k);
+            int fileEnd = fileStart;
+            while(fileEnd < disk.length && disk[fileEnd] == k){ fileEnd++; }
+            int fileSize = fileEnd - fileStart;
+            int spaceStart = findSpace(fileSize);
+            if(spaceStart != -1 && spaceStart < fileStart){
+                moveFile(fileStart, spaceStart);
+            }
+        }
+    }
 }
