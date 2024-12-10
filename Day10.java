@@ -21,4 +21,13 @@ public class Day10{
         }
         return Integer.toString(total);
     }
+    public static String getPart02(List<String> input){
+        TopographicMap map = generateTopographicMap(input);
+        ArrayList<Point> trailheads = map.findAllTrailheads();
+        int total = 0;
+        for(Point head : trailheads){
+            total += map.rateTrailhead(head);
+        }
+        return Integer.toString(total);
+    }
 }

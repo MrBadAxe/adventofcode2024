@@ -30,6 +30,20 @@ public class TopographicMap extends CharGrid{
         }
         return peaks.size();
     }
+    public int rateTrailhead(Point head){
+        ArrayList<Point> reachable = new ArrayList<>();
+        ArrayList<Point> peaks = new ArrayList<>();
+        reachable.addAll(getReachable(head));
+        while(reachable.size() > 0){
+            Point next = reachable.removeFirst();
+            if(this.get((int)next.getX(),(int)next.getY()) == '9'){
+                peaks.add(next);
+            }else{
+                reachable.addAll(getReachable(next));
+            }
+        }
+        return peaks.size();
+    }
 
     public ArrayList<Point> getReachable(Point p){
         ArrayList<Point> z = new ArrayList<>();
