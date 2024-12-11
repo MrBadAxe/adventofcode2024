@@ -58,4 +58,26 @@ public class Day11{
         }
         return Long.toString(total);
     }
+    public static String getPart02(List<String> input){
+        String startingStones = input.get(0);
+        HashMap<Long,Long> stones = new HashMap<>();
+        String[] split = startingStones.split("\s+");
+        for(String str : split){
+            long newStone = Long.parseLong(str);
+            if(stones.get(newStone) == null){
+                stones.put(newStone,0L);
+            }
+            stones.put(newStone,stones.get(newStone)+1L);
+        }
+        System.out.println(stones);
+        for(int k=0;k<75;k++){
+            stones = blink(stones);
+            System.out.println(stones);
+        }
+        long total = 0;
+        for(long stone : stones.keySet()){
+            total += stones.get(stone);
+        }
+        return Long.toString(total);
+    }
 }

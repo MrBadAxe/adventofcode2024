@@ -48,8 +48,8 @@ public class AdventOfCode2024{
     */
 
     System.out.println("Day 11 Part 01: " + Day11.getPart01(readInput("./input_day11.txt")));
-    /*
     System.out.println("Day 11 Part 02: " + Day11.getPart02(readInput("./input_day11.txt")));
+    /*
 
     System.out.println("Day 12 Part 01: " + Day12.getPart01(readInput("./input_day12.txt")));
     System.out.println("Day 12 Part 02: " + Day12.getPart02(readInput("./input_day12.txt")));
