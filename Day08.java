@@ -51,7 +51,6 @@ public class Day08{
                 }
             }
         }
-        System.out.println(antinodes);
         return Integer.toString(antinodes.size());
     }
 }
