@@ -47,10 +47,8 @@ public class Day11{
             }
             stones.put(newStone,stones.get(newStone)+1L);
         }
-        System.out.println(stones);
         for(int k=0;k<25;k++){
             stones = blink(stones);
-            System.out.println(stones);
         }
         long total = 0;
         for(long stone : stones.keySet()){
@@ -69,10 +67,8 @@ public class Day11{
             }
             stones.put(newStone,stones.get(newStone)+1L);
         }
-        System.out.println(stones);
         for(int k=0;k<75;k++){
             stones = blink(stones);
-            System.out.println(stones);
         }
         long total = 0;
         for(long stone : stones.keySet()){
