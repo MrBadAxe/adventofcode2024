@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Point{
   private final long x;
   private final long y;
@@ -17,6 +19,24 @@ public class Point{
 
   public long getY(){
     return this.y;
+  }
+
+  public ArrayList<Point> getNeighbors(){
+    return this.getNeighbors(false);
+  }
+  public ArrayList<Point> getNeighbors(boolean includeDiagonals){
+    ArrayList<Point> z = new ArrayList<>();
+    z.add(new Point(this.getX()-1, this.getY()));
+    z.add(new Point(this.getX()+1, this.getY()));
+    z.add(new Point(this.getX(), this.getY()-1));
+    z.add(new Point(this.getX(), this.getY()+1));
+    if(includeDiagonals){
+      z.add(new Point(this.getX()-1, this.getY()-1));
+      z.add(new Point(this.getX()+1, this.getY()-1));
+      z.add(new Point(this.getX()-1, this.getY()+1));
+      z.add(new Point(this.getX()+1, this.getY()+1));  
+    }
+    return z;
   }
 
   public long taxicabDistance(Point other){
