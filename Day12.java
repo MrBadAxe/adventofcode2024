@@ -15,4 +15,14 @@ public class Day12{
 
         return Integer.toString(total);
     }
+    public static String getPart02(List<String> input){
+        GardenMap map = new GardenMap(input);
+        ArrayList<GardenMapRegion> regions = map.generateRegionsList();
+        int total = 0;
+        for(GardenMapRegion region : regions){
+            total += region.calculateDiscountedFencingCost();
+        }
+        return Integer.toString(total);
+
+    }
 }
