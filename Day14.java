@@ -44,4 +44,54 @@ public class Day14{
         }
         return Long.toString(q1*q2*q3*q4);
     }
+    public static String viewPart02(List<String> input){
+        ArrayList<EBHQRobot> robots = generateRobotList(input);
+        
+        long height = 103;
+        long width = 101;
+
+        long timer = 0;
+
+        while(timer < 9999){
+            CharGrid grid = new CharGrid((int)height,(int)width,'.');
+            for(EBHQRobot robot : robots){
+                grid.set((int)robot.getPosition().getX(),(int)robot.getPosition().getY(),'X');
+            }
+            System.out.println(grid);
+            System.out.println("time = " + timer);
+
+            for(EBHQRobot robot : robots){
+                robot.step(height, width);
+            }
+            timer++;
+
+            long delay = System.currentTimeMillis() + 1000;
+            while(System.currentTimeMillis() < delay){}
+        }
+        return "";
+    }
+    public static String getPart02(List<String> input){
+        ArrayList<EBHQRobot> robots = generateRobotList(input);
+        
+        long height = 103;
+        long width = 101;
+
+        int timer = 8;
+        while(timer % 101 != 8 || timer % 103 != 78){
+            timer += 103;
+        }
+        for(EBHQRobot robot : robots){
+            for(int k=0;k<timer;k++){
+                robot.step(height, width);
+            }
+        }
+        CharGrid grid = new CharGrid((int)height,(int)width,'.');
+        for(EBHQRobot robot : robots){
+            grid.set((int)robot.getPosition().getX(),(int)robot.getPosition().getY(),'X');
+        }
+        System.out.println(grid);
+
+        return Long.toString(timer);
+    }
+
 }
