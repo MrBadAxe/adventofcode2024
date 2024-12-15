@@ -32,17 +32,16 @@ public class Day14{
         long q4 = 0;
 
         for(EBHQRobot robot : robots){
-            System.out.print(robot);
+            //System.out.print(robot);
             for(int k=0;k<100;k++){
                 robot.step(height, width);
             }
-            System.out.println("\t\t" + robot);
+            //System.out.println("\t\t" + robot);
             if(robot.getPosition().getX() < (height-1)/2 && robot.getPosition().getY() < (width-1)/2){  q1++; }
             if(robot.getPosition().getX() > (height-1)/2 && robot.getPosition().getY() < (width-1)/2){  q2++; }
             if(robot.getPosition().getX() < (height-1)/2 && robot.getPosition().getY() > (width-1)/2){  q3++; }
             if(robot.getPosition().getX() > (height-1)/2 && robot.getPosition().getY() > (width-1)/2){  q4++; }
         }
-        System.out.println(q1+" "+q2+" "+q3+" "+q4 + " "+(q1*q2*q3*q4));
         return Long.toString(q1*q2*q3*q4);
     }
 }
