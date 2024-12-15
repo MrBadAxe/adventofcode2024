@@ -87,7 +87,7 @@ public class Day14{
         for(EBHQRobot robot : robots){
             grid.set((int)robot.getPosition().getX(),(int)robot.getPosition().getY(),'X');
         }
-        System.out.println(grid);
+        //System.out.println(grid);
 
         return Long.toString(timer);
     }
