@@ -26,50 +26,70 @@ public class WarehouseMap extends CharGrid{
     }
     public void moveRobot(char direction){
         locateRobot();
-        StringBuilder pathBuilder = new StringBuilder("");
-
-        switch(direction){
-            case '^':
-                for(int row=(int)robot.getX();!pathBuilder.toString().contains("#");row--){
-                    pathBuilder.append(this.get(row,(int)robot.getY()));
-                }
-                break;
-            case '<':
-                for(int col=(int)robot.getY();!pathBuilder.toString().contains("#");col--){
-                    pathBuilder.append(this.get((int)robot.getX(),col));
-                }
-                break;
-            case '>':
-                for(int col=(int)robot.getY();!pathBuilder.toString().contains("#");col++){
-                    pathBuilder.append(this.get((int)robot.getX(),col));
-                }
-                break;
-            case 'v':
-                for(int row=(int)robot.getX();!pathBuilder.toString().contains("#");row++){
-                    pathBuilder.append(this.get(row,(int)robot.getY()));
-                }
-                break;
-        }
-        String path = pathBuilder.toString();
-        path = pushBoxes(path);
-
-        for(int k=0;k<path.length();k++){
-            switch(direction){
-                case '^':
-                    this.set((int)robot.getX()-k,(int)robot.getY(),path.charAt(k));
-                    break;
-                case '<':
-                    this.set((int)robot.getX(),(int)robot.getY()-k,path.charAt(k));
-                    break;
-                case '>':
-                    this.set((int)robot.getX(),(int)robot.getY()+k,path.charAt(k));
-                    break;
-                case 'v':
-                    this.set((int)robot.getX()+k,(int)robot.getY(),path.charAt(k));
-                    break;
-            }    
-        }
+        push2(robot,direction);
         locateRobot();
+    }
+    public boolean push2(Point origin, char direction){
+        //System.out.println(origin + " " + direction);
+        Point destination = origin;
+        switch(direction){
+            case '^': destination = new Point(origin.getX()-1,origin.getY()); break;
+            case 'v': destination = new Point(origin.getX()+1,origin.getY()); break;
+            case '<': destination = new Point(origin.getX(),origin.getY()-1); break;
+            case '>': destination = new Point(origin.getX(),origin.getY()+1); break;
+        }
+        if(destination == origin){ return false; }
+        Point otherHalf;
+        switch(this.get((int)destination.getX(),(int)destination.getY())){
+            case 'O':
+                if(this.clone().push2(destination,direction)){
+                    this.push2(destination,direction);
+                }else{
+                    return false;
+                }
+                break;
+            case '[':
+                if(direction == '^' || direction == 'v'){
+                    otherHalf = new Point(destination.getX(),destination.getY()+1);
+                    if(this.clone().push2(destination,direction) && this.clone().push2(otherHalf,direction)){
+                        this.push2(destination,direction);
+                        this.push2(otherHalf,direction);
+                    }else{
+                        return false;
+                    }    
+                }else{
+                    if(this.clone().push2(destination,direction)){
+                        this.push2(destination,direction);
+                    }else{
+                        return false;
+                    }
+                }
+                break;
+            case ']':
+                if(direction == '^' || direction == 'v'){
+                    otherHalf = new Point(destination.getX(),destination.getY()-1);
+                    if(this.clone().push2(destination,direction) && this.clone().push2(otherHalf,direction)){
+                        this.push2(destination,direction);
+                        this.push2(otherHalf,direction);
+                    }else{
+                        return false;
+                    }
+                }else{
+                    if(this.clone().push2(destination,direction)){
+                        this.push2(destination,direction);
+                    }else{
+                        return false;
+                    }
+                }
+                break;
+            case '#':
+                return false;
+        }
+        char pushedBlock = this.get((int)origin.getX(),(int)origin.getY());
+        this.set((int)origin.getX(),(int)origin.getY(),'.');
+        this.set((int)destination.getX(),(int)destination.getY(),pushedBlock);
+
+        return true;
     }
 
     public long calculateBoxGPSTotal(){
