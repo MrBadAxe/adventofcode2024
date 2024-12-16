@@ -5,6 +5,15 @@ public class WarehouseMap extends CharGrid{
         super(x,y,init);
         this.locateRobot();
     }
+    public WarehouseMap clone(){
+        WarehouseMap z = new WarehouseMap(this.getHeight(),this.getWidth(),'.');
+        for(int row=0;row<this.getHeight();row++){
+            for(int col=0;col<this.getWidth();col++){
+                z.set(row,col,this.get(row,col));
+            }
+        }
+        return z;
+    }
     private void locateRobot(){
         for(int row=0;row<this.getHeight();row++){
             for(int col=0;col<this.getWidth();col++){
@@ -88,7 +97,7 @@ public class WarehouseMap extends CharGrid{
         long total = 0;
         for(int row=0;row<this.getHeight();row++){
             for(int col=0;col<this.getWidth();col++){
-                if(this.get(row,col) == 'O'){
+                if(this.get(row,col) == 'O' || this.get(row,col) == '['){
                     total += (100*row) + col;
                 }
             }
