@@ -16,14 +16,6 @@ public class WarehouseMap extends CharGrid{
             }
         }
     }
-    private String pushBoxes(String path){
-        if(!path.contains(".")){ return path; }
-        String moveable = path.substring(0,path.indexOf(".")+1);
-        String notMoved = path.substring(path.indexOf(".")+1);
-        
-        String pushed = '.' + moveable.substring(0,moveable.length()-1);
-        return pushed + notMoved;
-    }
     public void moveRobot(char direction){
         locateRobot();
         push2(robot,direction);
