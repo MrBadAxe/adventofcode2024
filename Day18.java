@@ -34,7 +34,6 @@ public class Day18{
         ArrayList<Point> bytePositions = generateBytePositionsList(input);
         CharGrid memorySpace = new CharGrid(MEMORY_SPACE_DIM,MEMORY_SPACE_DIM,'.');
         memorySpace = corrupt(memorySpace,bytePositions,FIRST_PASS_CORRUPT);
-        //System.out.println(memorySpace);
         int pathLength = MazeSolver.findPathLength(memorySpace, new Point(0,0), new Point(MEMORY_SPACE_DIM-1,MEMORY_SPACE_DIM-1));
         return Integer.toString(pathLength);
     }
