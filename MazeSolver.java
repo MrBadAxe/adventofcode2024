@@ -45,6 +45,6 @@ public class MazeSolver{
             //System.out.println(unexplored);
             //System.out.println(explored);
         }        
-        return explored.get(end);
+        return (explored.get(end) == null) ? -1 : explored.get(end);
     }
 }
