@@ -6,13 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day17{
-    private static HashMap<String,Integer> initializeRegisters(List<String> input){
-        HashMap<String,Integer> registers = new HashMap<>();
+    private static HashMap<String,Long> initializeRegisters(List<String> input){
+        HashMap<String,Long> registers = new HashMap<>();
         Pattern descRegister = Pattern.compile("Register ([A-C]): (\\d+)");
         for(int k=0;k<3;k++){
             Matcher m = descRegister.matcher(input.get(k));
             m.find();
-            registers.put(m.group(1),Integer.parseInt(m.group(2)));
+            registers.put(m.group(1),Long.parseLong(m.group(2)));
         }
         return registers;
     }
@@ -27,8 +27,8 @@ public class Day17{
         }
         return z;
     }
-    private static int comboOperand(HashMap<String,Integer> registers, int operand){
-        int z = 0;
+    private static long comboOperand(HashMap<String,Long> registers, int operand){
+        long z = 0;
         switch(operand){
             case 0:
             case 1:
@@ -42,17 +42,17 @@ public class Day17{
         }
         return z;
     }
-    private static ArrayList<Integer> runProgram(HashMap<String,Integer> registers, int[] program){
-        ArrayList<Integer> output = new ArrayList<>();
+    private static ArrayList<Long> runProgram(HashMap<String,Long> registers, int[] program){
+        ArrayList<Long> output = new ArrayList<>();
         int programCounter = 0;
         while(programCounter < program.length){
-            int op1 = 0;
-            int op2 = 0;
-            int result = 0;
+            long op1 = 0;
+            long op2 = 0;
+            long result = 0;
             switch(program[programCounter]){
                 case 0:
                     op1 = registers.get("A");
-                    op2 = (int)Math.pow(2,comboOperand(registers, program[programCounter+1]));
+                    op2 = (long)Math.pow(2L,comboOperand(registers, program[programCounter+1]));
                     result = Math.floorDiv(op1,op2);
                     registers.put("A",result);
                     programCounter += 2;
@@ -112,12 +112,12 @@ public class Day17{
         return output;
     }
     public static String getPart01(List<String> input){
-        HashMap<String,Integer> registers = initializeRegisters(input);
+        HashMap<String,Long> registers = initializeRegisters(input);
         int[] program = initializeProgram(input.get(4));
-        ArrayList<Integer> output = runProgram(registers, program);
+        ArrayList<Long> output = runProgram(registers, program);
         StringJoiner sjOutput = new StringJoiner(",");
-        for(Integer i : output){
-            sjOutput.add(Integer.toString(i));
+        for(Long l : output){
+            sjOutput.add(Long.toString(l));
         }
         return sjOutput.toString();
     }
