@@ -38,7 +38,22 @@ public class Day18{
         return Integer.toString(pathLength);
     }
     public static String getPart02(List<String> input){
-        return "";
+        ArrayList<Point> bytePositions = generateBytePositionsList(input);
+        CharGrid memorySpace = new CharGrid(MEMORY_SPACE_DIM,MEMORY_SPACE_DIM,'.');
+
+        int lb = FIRST_PASS_CORRUPT;
+        int ub = input.size();
+        while(lb != ub){
+            int midpoint = (lb+ub)/2;
+            memorySpace = corrupt(new CharGrid(MEMORY_SPACE_DIM,MEMORY_SPACE_DIM,'.'),bytePositions,midpoint);
+            int pathLength = MazeSolver.findPathLength(memorySpace, new Point(0,0), new Point(MEMORY_SPACE_DIM-1,MEMORY_SPACE_DIM-1));
+            if(pathLength == -1){
+                ub = midpoint;
+            }else{
+                lb = midpoint+1;
+            }
+        }
+        return input.get(lb-1).toString();
     }
 
 }
