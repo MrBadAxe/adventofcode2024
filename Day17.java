@@ -16,6 +16,13 @@ public class Day17{
         }
         return registers;
     }
+    private static HashMap<String,Long> initializeRegisters(long a, long b, long c){
+        HashMap<String,Long> registers = new HashMap<>();
+        registers.put("A",a);
+        registers.put("B",b);
+        registers.put("C",c);
+        return registers;
+    }
     private static int[] initializeProgram(String program){
         Pattern descProgram = Pattern.compile("Program: (\\d+(,\\d+)*)");
         Matcher m = descProgram.matcher(program);
@@ -107,7 +114,6 @@ public class Day17{
                     break;
                 default:
             }
-            System.out.println(registers);
         }
         return output;
     }
@@ -122,7 +128,36 @@ public class Day17{
         return sjOutput.toString();
     }
     public static String getPart02(List<String> input){
-        return "";
+        int[] program = initializeProgram(input.get(4));
+        StringJoiner sjProgram = new StringJoiner(",");
+        for(int i=0;i<program.length;i++){
+            sjProgram.add(Integer.toString(program[i]));
+        }
+        String strProgram = sjProgram.toString();
+
+        String strOutput = "";
+        ArrayList<Long> testValues = new ArrayList<>();
+        for(long k=1;k<=7;k++){
+            testValues.add(k);
+        }
+
+        long testValue = 0;
+        while(!strOutput.equals(strProgram)){
+            testValue = testValues.removeFirst();
+            HashMap<String,Long> registers = initializeRegisters(testValue, 0, 0);
+            ArrayList<Long> output = runProgram(registers, program);
+            StringJoiner sjOutput = new StringJoiner(",");
+            for(Long l : output){
+                sjOutput.add(Long.toString(l));
+            }
+            strOutput = sjOutput.toString();
+            if(strProgram.substring(strProgram.length() - strOutput.length()).equals(strOutput)){
+                for(long k=0;k<8;k++){
+                    testValues.add(testValue * 8 + k);
+                }
+            }
+        }
+        return Long.toString(testValue);
     }
 
 }
