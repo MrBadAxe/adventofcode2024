@@ -16,13 +16,11 @@ public class Day19{
     }
     public static String getPart01(List<String> input){
         ArrayList<String> allOnsenTowels = generateTowelsList(input.get(0));
-        //System.out.println(allOnsenTowels);
 
         ArrayList<String> designs = new ArrayList<>();
         for(int k=2;k<input.size();k++){
             designs.add(input.get(k));
         }
-        //System.out.println(designs);
 
         HashSet<String> totalPossibleDesigns = new HashSet<>();
         LinkedHashSet<String> candidates = new LinkedHashSet<>();
@@ -30,12 +28,10 @@ public class Day19{
         
         while(candidates.size() > 0){
             String candidate = candidates.removeFirst();
-            //System.out.println(candidate);
 
             String[] split = candidate.split("\\|");
             String alreadyChecked = split.length > 1 ? split[0] : "";
             String remaining = split.length > 1 ? split[1] : split[0];
-            //System.out.println(alreadyChecked + ":" + remaining);
 
             ArrayList<String> newCandidates = new ArrayList<>();
             for(String towel : allOnsenTowels){
@@ -47,7 +43,6 @@ public class Day19{
                         if(endsWith.length() == 0){
                             totalPossibleDesigns.add(alreadyChecked + startsWith);
                         }else{
-                            //System.out.println(alreadyChecked + startsWith + "|" + endsWith);
                             newCandidates.add(alreadyChecked + startsWith + "|" + endsWith);
                         }
                     }
@@ -56,7 +51,6 @@ public class Day19{
             candidates.addAll(newCandidates);
         }
 
-        //System.out.println(totalPossibleDesigns);
         return Integer.toString(totalPossibleDesigns.size());
     }
     public static String getPart02(List<String> input){
