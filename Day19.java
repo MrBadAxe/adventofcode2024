@@ -54,7 +54,58 @@ public class Day19{
         return Integer.toString(totalPossibleDesigns.size());
     }
     public static String getPart02(List<String> input){
-        return "";
+        ArrayList<String> allOnsenTowels = generateTowelsList(input.get(0));
+
+        ArrayList<String> designs = new ArrayList<>();
+        for(int k=2;k<input.size();k++){
+            designs.add(input.get(k));
+        }
+
+        HashMap<String,Long> totalPossibleDesigns = new HashMap<>();
+        HashMap<String,Long> candidates = new HashMap<>();
+        for(String design : designs){
+            candidates.put(design,1L);
+        }
+        
+        while(candidates.size() > 0){
+            HashMap<String,Long> newCandidates = new HashMap<>();
+            for(String candidate : candidates.keySet()){
+                long count = candidates.get(candidate);
+
+                String[] split = candidate.split("\\|");
+                String alreadyChecked = split.length > 1 ? split[0] : "";
+                String remaining = split.length > 1 ? split[1] : split[0];
+
+                for(String towel : allOnsenTowels){
+                    if(remaining.length() >= towel.length()){
+                        String startsWith = remaining.substring(0,towel.length());
+                        String endsWith = remaining.substring(towel.length());
+                        if(startsWith.equals(towel)){
+                            if(endsWith.length() == 0){
+                                String match = alreadyChecked + startsWith;
+                                if(totalPossibleDesigns.get(match) == null){
+                                    totalPossibleDesigns.put(match,0L);
+                                }
+                                totalPossibleDesigns.put(match,totalPossibleDesigns.get(match)+count);
+                            }else{
+                                String newCandidate = alreadyChecked + startsWith + "|" + endsWith;
+                                if(newCandidates.get(newCandidate) == null){
+                                    newCandidates.put(newCandidate,0L);
+                                }
+                                newCandidates.put(newCandidate,newCandidates.get(newCandidate)+count);
+                            }
+                        }
+                    }
+                }
+            }
+            candidates = newCandidates;
+        }
+
+        long total = 0;
+        for(String key : totalPossibleDesigns.keySet()){
+            total += totalPossibleDesigns.get(key);
+        }
+        return Long.toString(total);
     }
 
 }
