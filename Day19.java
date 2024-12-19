@@ -38,7 +38,6 @@ public class Day19{
                 if(remaining.length() >= towel.length()){
                     String startsWith = remaining.substring(0,towel.length());
                     String endsWith = remaining.substring(towel.length());
-                    //System.out.println(startsWith + "|" + endsWith);
                     if(startsWith.equals(towel)){
                         if(endsWith.length() == 0){
                             totalPossibleDesigns.add(alreadyChecked + startsWith);
