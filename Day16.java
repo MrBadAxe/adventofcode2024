@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Day16{
     private static ReindeerMaze generateReindeerMaze(List<String> input){
@@ -16,12 +17,18 @@ public class Day16{
     }
     public static String getPart01(List<String> input){
         ReindeerMaze maze = generateReindeerMaze(input);
-        //System.out.println(maze);
-        //System.out.println(maze.getStart());
-        //System.out.println(maze.getEnd());
-        int[][] scorePaths = maze.scorePaths();
-        return Integer.toString(scorePaths[(int)maze.getEnd().getX()][(int)maze.getEnd().getY()]);
+        while(!maze.pruneDeadEnds().equals(maze)){
+            maze = maze.pruneDeadEnds();
+        }
+        System.out.println(maze);
+        ArrayList<ReindeerMazeRunner> paths = maze.findBestPaths();
+        int lowest = Integer.MAX_VALUE;
+        for(ReindeerMazeRunner path : paths){
+            lowest = Math.min(lowest,path.getPathScore());
+        }
+        return Integer.toString(lowest);
     }
+    /*
     public static String getPart02(List<String> input){
         ReindeerMaze maze = generateReindeerMaze(input);
         //System.out.println(maze);
@@ -34,5 +41,5 @@ public class Day16{
         int[][] scorePaths = maze.scorePaths();
         return Integer.toString(scorePaths[(int)maze.getEnd().getX()][(int)maze.getEnd().getY()]);
     }
-
+    */
 }
