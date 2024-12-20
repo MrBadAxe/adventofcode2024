@@ -31,9 +31,7 @@ public class Day20{
     }
     public static String getPart01(List<String> input){
         RacetrackMap map = generateRacetrackMap(input);
-        System.out.println(map);
         ArrayList<Point> path = map.toPath();
-        System.out.println(path);
         HashMap<Integer,Integer> numCheats = new HashMap<>();
 
         for(Point p : path){
@@ -52,7 +50,6 @@ public class Day20{
                 }
             }
         }
-        System.out.println(numCheats);
 
         int total = 0;
         for(int saved : numCheats.keySet()){
