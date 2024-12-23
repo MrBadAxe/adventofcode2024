@@ -15,7 +15,7 @@ public class Day22{
         
         ArrayList<SecretNumberMonkey> monkeys = new ArrayList<>();
         for(String line : input){
-            SecretNumberMonkey monkey = new SecretNumberMonkey(Long.parseLong(line),2000);
+            SecretNumberMonkey monkey = new SecretNumberMonkey(Long.parseLong(line));
             monkeys.add(monkey);
         }
         long highestTotal = 0;
