@@ -45,6 +45,18 @@ public class Day23{
         }
         return triples;
     }
+    private static boolean allConnected(HashMap<String,ArrayList<String>> connections, ArrayList<String> nodes){
+        boolean z = true;
+        int size = nodes.size();
+        for(int k=0;k<size-1;k++){
+            for(int j=k+1;j<size;j++){
+                String nodeA = nodes.get(k);
+                String nodeB = nodes.get(j);
+                z &= isConnected(connections, nodeA, nodeB);
+            }
+        }
+        return z;
+    }
     public static String getPart01(List<String> input){
         HashMap<String,ArrayList<String>> connections = generateConnectionMap(input);
         HashSet<String> triples = findTriples(connections);
@@ -61,7 +73,27 @@ public class Day23{
         return Integer.toString(containsT);
     }
     public static String getPart02(List<String> input){
-        return "";
+        HashMap<String,ArrayList<String>> connections = generateConnectionMap(input);
+        ArrayList<String> maximumClique = new ArrayList<>();
+        int maximumCliqueSize = 0;
+
+        for(String start : connections.keySet()){
+            ArrayList<String> potentialClique = new ArrayList<>();
+            potentialClique.add(start);
+            ArrayList<String> connectedNodes = connections.get(start);
+            for(String node : connectedNodes){
+                potentialClique.add(node);
+                if(!allConnected(connections, potentialClique)){
+                    potentialClique.remove(node);
+                }
+            }
+            if(potentialClique.size() > maximumCliqueSize){
+                maximumCliqueSize = potentialClique.size();
+                maximumClique = potentialClique;
+            }
+        }
+        Collections.sort(maximumClique);
+        return maximumClique.toString().replaceAll("[\s\\[\\]]","");
     }
 
 }
