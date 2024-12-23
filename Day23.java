@@ -10,33 +10,33 @@ public class Day23{
         HashMap<String,ArrayList<String>> connections = new HashMap<>();
         for(String line : input){
             String[] split = line.split("-");
-            String a = split[0];
-            String b = split[1];
+            String nodeA = split[0];
+            String nodeB = split[1];
 
-            connections.putIfAbsent(a, new ArrayList<String>());
-            connections.get(a).add(b);
-            connections.putIfAbsent(b, new ArrayList<String>());
-            connections.get(b).add(a);
+            connections.putIfAbsent(nodeA, new ArrayList<String>());
+            connections.get(nodeA).add(nodeB);
+            connections.putIfAbsent(nodeB, new ArrayList<String>());
+            connections.get(nodeB).add(nodeA);
         }
         return connections;
     }
-    private static boolean isConnected(HashMap<String,ArrayList<String>> connections, String a, String b){
-        return connections.get(a).contains(b) || connections.get(b).contains(a);
+    private static boolean isConnected(HashMap<String,ArrayList<String>> connections, String nodeA, String nodeB){
+        return connections.get(nodeA).contains(nodeB) || connections.get(nodeB).contains(nodeA);
     }
     private static HashSet<String> findTriples(HashMap<String,ArrayList<String>> connections){
         HashSet<String> triples = new HashSet<>();
 
-        for(String origin : connections.keySet()){
-            ArrayList<String> connected = connections.get(origin);
+        for(String nodeA : connections.keySet()){
+            ArrayList<String> connected = connections.get(nodeA);
             for(int k=0;k<connected.size()-1;k++){
                 for(int j=k+1;j<connected.size();j++){
-                    String a = connected.get(k);
-                    String b = connected.get(j);
-                    if(isConnected(connections, a, b)){
+                    String nodeB = connected.get(k);
+                    String nodeC = connected.get(j);
+                    if(isConnected(connections, nodeB, nodeC)){
                         ArrayList<String> triple = new ArrayList<>();
-                        triple.add(origin);
-                        triple.add(a);
-                        triple.add(b);
+                        triple.add(nodeA);
+                        triple.add(nodeB);
+                        triple.add(nodeC);
                         Collections.sort(triple);
                         triples.add(triple.toString());
                     }
