@@ -9,10 +9,19 @@ public class StaticSource implements LogicSource{
     public String getLabel(){
         return label;
     }
+    public void setLabel(String newLabel){
+        this.label = newLabel;
+    }
     public boolean getOutput(){
         return output;
     }
     public String toString(){
         return this.getLabel();
+    }
+    public int getBranchWeight(){
+        return 1;
+    }
+    public boolean needsSwap(){
+        return false;
     }
 }
