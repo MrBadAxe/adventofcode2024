@@ -78,6 +78,29 @@ public class Day24{
         return Long.toString(circuit.getDataBus("z"));
     }
     public static String getPart02(List<String> input){
+        HashMap<String,String> swaps = new HashMap<>();
+        swaps.put("z12","kwb");
+        swaps.put("kwb","z12");
+
+        swaps.put("z16","qkf");
+        swaps.put("qkf","z16");
+
+        swaps.put("tgr","z24");
+        swaps.put("z24","tgr");
+
+        swaps.put("jqn","cph");
+        swaps.put("cph","jqn");
+
+        //cph,jqn,kwb,qkf,tgr,z12,z16,z24
+
+        ArrayList<String> sources = filterSources(input);
+        ArrayList<String> gates = filterGates(input);
+        gates = processSwaps(gates, swaps);
+        LogicCircuit circuit = generateLogicCircuit(sources,gates);
+
+        System.out.println(circuit.getDataBus("z"));
+
+        circuit.findSwaps();
         return "";
     }
 
