@@ -1,34 +1,22 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Day24{
-    private static HashMap<String,Boolean> generateSources(List<String> input){
-        HashMap<String,Boolean> sources = new HashMap<>();
+    private static LogicCircuit generateLogicCircuit(List<String> input){
+        LogicCircuit circuit = new LogicCircuit();
         int k=0;
         String line = input.get(k);
         while(!line.isEmpty()){
             String[] split = line.split(":");
             String label = split[0];
             boolean signal = split[1].strip().equals("1");
-            sources.putIfAbsent(label,signal);
+            circuit.addSource(label,new StaticSource(label, signal));
             k++;
             line = input.get(k);
         }
-        return sources;
-    }
-    private static long getDataBus(HashMap<String,Boolean> sources, String label){
-        long output = 0L;
-        for(int k=0;sources.containsKey(label+String.format("%02d",k));k++){
-            long bitN = sources.get(label+String.format("%02d",k)) ? 1 : 0;
-            output += bitN << k;
-        }
-        return output;
-    }
-    public static String getPart01(List<String> input){
-        HashMap<String,Boolean> sources = generateSources(input);
+        k++;
         ArrayList<String> gates = new ArrayList<>();
-        for(int k=sources.size()+1;k<input.size();k++){
+        for( ;k<input.size();k++){
             gates.add(input.get(k));
         }
         while(gates.size() > 0){
@@ -38,19 +26,24 @@ public class Day24{
             String operand1 = split[0];
             String operand2 = split[2];
             String operator = split[1];
-            if(sources.containsKey(operand1) && sources.containsKey(operand2)){
+            if(circuit.containsSource(operand1) && circuit.containsSource(operand2)){
                 if(operator.equals("AND")){
-                    sources.put(label, sources.get(operand1) && sources.get(operand2));
+                    circuit.addSource(label, new AndGate(label, circuit.getSource(operand1),circuit.getSource(operand2)));
                 }else if(operator.equals("OR")){
-                    sources.put(label, sources.get(operand1) || sources.get(operand2));
+                    circuit.addSource(label, new OrGate(label, circuit.getSource(operand1),circuit.getSource(operand2)));
                 }else if(operator.equals("XOR")){
-                    sources.put(label, sources.get(operand1) ^ sources.get(operand2));
+                    circuit.addSource(label, new XorGate(label, circuit.getSource(operand1),circuit.getSource(operand2)));
                 }
             }else{
                 gates.addLast(gate);
             }
         }
-        return Long.toString(getDataBus(sources,"z"));
+        return circuit;
+    }
+    public static String getPart01(List<String> input){
+        
+        LogicCircuit circuit = generateLogicCircuit(input);
+        return Long.toString(circuit.getDataBus("z"));
     }
     public static String getPart02(List<String> input){
         return "";
